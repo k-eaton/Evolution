@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.border.Border;
 import javax.swing.*;
@@ -15,11 +16,10 @@ public class Evolution {
 		frame.setLocationRelativeTo(null);
 
 		// build cells
-		float[] rgb = new float[3];
-		Cell cell1 = new Cell();
-		cell1.updateText();
+		Matrix matrix = new Matrix(5);
+		// cell1.updateText();
 
-		frame.add(cell1);
+		frame.add(matrix);
 
 
 		frame.pack();
@@ -32,6 +32,40 @@ public class Evolution {
 
 		new Evolution();
 
+
+	}
+}
+
+class Matrix extends JPanel{
+
+	public Matrix(int numOfCells) {
+
+		super();
+		// Gridlayout layout = new GridLayout(numOfCells,numOfCells);
+		this.setLayout(new GridLayout(numOfCells,numOfCells));
+
+		// create matrix
+		Cell[][] iArray = new Cell[numOfCells][numOfCells];
+		// for(int i = 0; i < numOfCells; i++) {
+		// 	iArray[i] = new Cell[numOfCells];
+		// }
+
+		// populate matrix
+		for(int i = 0; i < numOfCells; i++) {
+			for(int j = 0; j < numOfCells; j++) {
+				iArray[i][j] = new Cell();
+				iArray[i][j].updateText();
+				this.add(iArray[i][j]);
+			}
+		}
+
+
+		// add matrix to panel
+		// for(int i = 0; i < numOfCells; i++) {
+		// 	for(int j = 0; j < numOfCells) {
+		// 		this.add(iArray[i][j]);
+		// 	}
+		// }
 
 	}
 }
