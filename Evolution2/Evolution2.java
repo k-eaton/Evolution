@@ -13,11 +13,12 @@ import java.util.Random;
 import javax.swing.border.Border;
 import javax.swing.*;
 
-public class Evolution {
+public class Evolution2 {
 
-	private final Matrix matrix = new Matrix(6);
+	private final int GRIDSIZE = 8;
+	private final Matrix matrix = new Matrix(GRIDSIZE);
 
-	public Evolution() { 
+	public Evolution2() { 
 		// build the frame
 		JFrame frame = new JFrame("Evolution");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,9 +46,9 @@ public class Evolution {
 			public void actionPerformed(ActionEvent evt) {
 				System.out.println("Reset Button activated");
 
-				for(int i = 0; i < 6; i++) {
-					for(int j = 0; j < 6; j++) {
-						matrix.cellMatrix[i][j].updateCell(0, 0, 0);
+				for(int i = 0; i < GRIDSIZE; i++) {
+					for(int j = 0; j < GRIDSIZE; j++) {
+						matrix.cellMatrix[i][j].updateCell(255, 255, 255);
 						matrix.cellMatrix[i][j].setBorder(Cell.borderBlack);
 
 					}
@@ -80,7 +81,7 @@ public class Evolution {
 
 	public static void main(String args[]) {
 
-		new Evolution();
+		new Evolution2();
 
 
 	}
@@ -108,15 +109,11 @@ class Matrix extends JPanel{
 		for(int i = 0; i < numOfCells; i++) {
 			for(int j = 0; j < numOfCells; j++) {
 				cellMatrix[i][j] = new Cell();
-				cellMatrix[i][j].updateCell(0, 0, 0);
+				cellMatrix[i][j].updateCell(255, 255, 255);
 				this.add(cellMatrix[i][j]);
 				cellDeathMatrix[i][j] = false;
 			}
 		}
-	}
-
-	public static Matrix getMatrix() {
-		return new Matrix(6);
 	}
 
 	public void evolve(Cell[][] cellMatrix, Boolean[][] cellDeathMatrix) {
@@ -217,7 +214,7 @@ class Matrix extends JPanel{
 		Color lowestColorCell = a;
 
 		for(int i = 0; i < colorFitness.length; i++) {
-			if(lowestColorTotal > colorFitness[i]) {
+			if(lowestColorTotal < colorFitness[i]) {
 				lowestColorTotal = colorFitness[i];
 				lowestColorCell = associatedCell[i];
 				System.out.println("lowestColorCell = " + lowestColorCell);
@@ -257,14 +254,17 @@ class Matrix extends JPanel{
 		int[] colors = {red, green, blue};
 
 		// gives a 60% chance of mutation
-		if(getRandomNumberInRange(0, 100) > 40) {
+		if(getRandomNumberInRange(0, 100) > 60) {
 
 			// how much are we mutating?
 			int numToAdd = getRandomNumberInRange(-50, 50);
 			System.out.println("Random number to add: " + numToAdd);
 
 			// which color are we mutating?
-			int whichColorToChange = getRandomNumberInRange(0, 2);
+			int whichColorToChange = getRandomNumberInRange(0, 99);
+			if(whichColorToChange < 33) whichColorToChange = 0;
+			else if(whichColorToChange < 66) whichColorToChange = 1;
+			else whichColorToChange = 2;
 
 			// change the color value
 			colors[whichColorToChange] += numToAdd;
@@ -284,15 +284,15 @@ class Matrix extends JPanel{
 
 class Cell extends JLabel {
 
-	public static Border borderBlack = BorderFactory.createLineBorder(Color.BLACK, 5);
-	public static Border borderRed = BorderFactory.createLineBorder(Color.RED, 2);
+	public static Border borderBlack = BorderFactory.createLineBorder(Color.BLUE, 1);
+	public static Border borderRed = BorderFactory.createLineBorder(Color.BLACK, 5);
 
 	public Cell() {
 		super();
 		this.setOpaque(true);
 		this.setVerticalTextPosition(JLabel.CENTER);
-		this.setForeground(Color.WHITE);
-		this.setBackground(Color.BLACK);
+		this.setForeground(Color.BLACK);
+		// this.setBackground(Color.WHITE);
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setBorder(borderBlack);
 	}
