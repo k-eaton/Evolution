@@ -262,11 +262,13 @@ class Matrix extends JPanel{
 		return totalColor;
 	}
 
+	// I didn't write this function, I found it online
 	private static int getRandomNumberInRange(int min, int max) {
 		Random r = new Random();
 		return r.ints(min, (max + 1)).findFirst().getAsInt();
 	}
 }
+
 class Cell extends JLabel {
 
 	public static Border borderUnchanged = BorderFactory.createLineBorder(Color.BLACK, 2);
@@ -293,6 +295,7 @@ class Cell extends JLabel {
 			this.setForeground(Color.WHITE);
 		}
 
+		// reset the cell's text back to center
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 	}
 
