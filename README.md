@@ -23,3 +23,13 @@ The mutation phase is applied to the new cells created in each iteration. The ce
 The cells are processed in 2x2 square starting at the top left and working down to the bottom right. This means the corner squares are only processed once, the other edge cells twice, and the interior cells four times per iteration. This increses the potential mutation factor in the middle, rather than distributing it evenly.
 
 Ideally Evolution Strategy begins with a varied population to more accurately reflect the wild, but in my case I started with a uniform population and (in version 3) implemented a slight level of randomness to accommodate that, even though Evolution Strategy is supposed to have deterministic selection. (And it does once the population develops some randomness.)
+
+The reset button frequently has to be clicked twice to fully reset the cell matrix. But it's not consistent, and I don't know why.
+
+## Running the program
+
+The program is written in Java 8, each version contained in it's own folder, and none of them require any special addons to compile. There are three classes contained in each version of the program combined into one file. To compile from the command line and run the program, begin by being in the correct sub folder for the version you want to run (I recommend 3) and enter the following commands:
+
+	javac Evolution3.java
+	java Evolution3
+
